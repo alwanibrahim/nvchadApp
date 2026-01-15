@@ -1,15 +1,33 @@
+
 local options = {
   formatters_by_ft = {
+    -- core
     lua = { "stylua" },
-    css = { "prettier" },
+
+    -- web
     html = { "prettier" },
+    css = { "prettier" },
+    scss = { "prettier" },
+    javascript = { "prettier" },
+    typescript = { "prettier" },
+    javascriptreact = { "prettier" },
+    typescriptreact = { "prettier" },
+    json = { "prettier" },
+    jsonc = { "prettier" },
+    markdown = { "prettier" },
+    yaml = { "prettier" },
+
+    -- backend / others (opsional, aman ditinggal kalau belum install)
+    python = { "black" },
+    go = { "gofmt" },
+    sh = { "shfmt" },
   },
 
-  -- format_on_save = {
-  --   -- These options will be passed to conform.format()
-  --   timeout_ms = 500,
-  --   lsp_fallback = true,
-  -- },
+  format_on_save = {
+    timeout_ms = 500,
+    lsp_fallback = true,
+  },
 }
 
 return options
+

@@ -1,31 +1,84 @@
+vim.deprecate = function() end
 
+-- Atau lebih spesifik, filter warning tertentu
+
+-- =========================================================
+-- NVChad base (WAJIB)
+-- =========================================================
 require("nvchad.configs.lspconfig").defaults()
 
--- DEFINE dulu
-vim.lsp.config.tsserver = {
+local lspconfig = require("lspconfig")
+local util = lspconfig.util
+
+-- =========================================================
+-- TYPESCRIPT / JAVASCRIPT (PAKAI ts_ls)
+-- =========================================================
+lspconfig.ts_ls.setup({
   cmd = { "typescript-language-server", "--stdio" },
   filetypes = {
-    "typescript",
-    "typescriptreact",
     "javascript",
     "javascriptreact",
+    "typescript",
+    "typescriptreact",
   },
-  root_markers = { "package.json", "tsconfig.json", ".git" },
-}
+  root_dir = util.root_pattern(
+    "tsconfig.json",
+    "package.json",
+    ".git"
+  ),
+})
 
-vim.lsp.config.html = {
-  cmd = { "vscode-html-language-server", "--stdio" },
+-- =========================================================
+-- HTML
+-- =========================================================
+lspconfig.html.setup({
   filetypes = { "html" },
-  root_markers = { "package.json", ".git" },
-}
+})
 
-vim.lsp.config.cssls = {
-  cmd = { "vscode-css-language-server", "--stdio" },
+-- =========================================================
+-- CSS
+-- =========================================================
+lspconfig.cssls.setup({
   filetypes = { "css", "scss", "less" },
-  root_markers = { "package.json", ".git" },
-}
+})
 
--- BARU enable
-vim.lsp.enable({ "tsserver", "html", "cssls" })
-
-vim.lsp.inlay_hint.enable(false)
+-- =========================================================
+-- TAILWIND CSS
+-- =========================================================
+lspconfig.tailwindcss.setup({
+  filetypes = {
+    "html",
+    "css",
+    "scss",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  },
+  root_dir = util.root_pattern(
+    "tailwind.config.js",
+    "tailwind.config.cjs",
+    "tailwind.config.ts",
+    "postcss.config.js",
+    "package.json",
+    ".git"
+  ),
+  settings = {
+    tailwindCSS = {
+      classAttributes = {
+        "class",
+        "className",
+        "class:list",
+        "classList",
+        "ngClass",
+      },
+      experimental = {
+        classRegex = {
+          "cn%(([^)]*)%)",
+          "clsx%(([^)]*)%)",
+        },
+      },
+      validate = true,
+    },
+  },
+})

@@ -1,9 +1,15 @@
-const data = {
-
-
-  nama: "alwan"
-
+const tree = {
+  id: 'root', 
+  label: "Root", 
+  children: [
+    {
+      id: "dashboard", 
+      label: "Dashboard", 
+      children: []
+    }
+  ]
 }
 
-
-data.nama
+const data = {
+  sasa: "sasa",sasa: "sajsaiu"
+}

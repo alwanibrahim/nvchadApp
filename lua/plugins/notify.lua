@@ -2,20 +2,18 @@
 return {
   "rcarriga/nvim-notify",
   lazy = false,
+
   opts = {
-    stages = "static", -- ⬅️ jangan animasi
-    timeout = 1500,
-    max_height = 10,
-    max_width = 60,
+    stages = "static",  -- NO slomo
+    timeout = 800,      -- cepat hilang
     render = "minimal",
+    max_height = 5,
+    max_width = 100,
+    fps = 60,
   },
-  config = function()
-    local notify = require("notify")
-    notify.setup({
-      stages = "fade",
-      timeout = 3000,
-    })
-    vim.notify = notify
+
+  init = function()
+    vim.notify = require("notify")
   end,
 }
 
