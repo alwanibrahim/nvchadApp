@@ -11,6 +11,7 @@ return {
   -- build = 'nix run .#build-plugin',
 
   ---@module 'blink.cmp'
+  ---@diagnostic disable-next-line: undefined-doc-name
   ---@type blink.cmp.Config
   opts = {
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)

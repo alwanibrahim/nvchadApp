@@ -1,84 +1,29 @@
 vim.deprecate = function() end
+local lspconfig = require "lspconfig"
+local nvlsp = require "nvchad.configs.lspconfig"
 
--- Atau lebih spesifik, filter warning tertentu
+-- Jalankan default config NvChad
+nvlsp.defaults()
 
--- =========================================================
--- NVChad base (WAJIB)
--- =========================================================
-require("nvchad.configs.lspconfig").defaults()
+local servers = {
+  "html",
+  "cssls",
+  "tailwindcss",
+  "ts_ls", -- Gunakan "ts_ls" untuk versi terbaru atau "tsserver" untuk versi lama
+  "emmet_ls",
+  "eslint",
+}
 
-local lspconfig = require("lspconfig")
-local util = lspconfig.util
-
--- =========================================================
--- TYPESCRIPT / JAVASCRIPT (PAKAI ts_ls)
--- =========================================================
-lspconfig.ts_ls.setup({
-  cmd = { "typescript-language-server", "--stdio" },
-  filetypes = {
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-  },
-  root_dir = util.root_pattern(
-    "tsconfig.json",
-    "package.json",
-    ".git"
-  ),
-})
-
--- =========================================================
--- HTML
--- =========================================================
-lspconfig.html.setup({
-  filetypes = { "html" },
-})
-
--- =========================================================
--- CSS
--- =========================================================
-lspconfig.cssls.setup({
-  filetypes = { "css", "scss", "less" },
-})
-
--- =========================================================
--- TAILWIND CSS
--- =========================================================
-lspconfig.tailwindcss.setup({
-  filetypes = {
-    "html",
-    "css",
-    "scss",
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-  },
-  root_dir = util.root_pattern(
-    "tailwind.config.js",
-    "tailwind.config.cjs",
-    "tailwind.config.ts",
-    "postcss.config.js",
-    "package.json",
-    ".git"
-  ),
-  settings = {
-    tailwindCSS = {
-      classAttributes = {
-        "class",
-        "className",
-        "class:list",
-        "classList",
-        "ngClass",
-      },
-      experimental = {
-        classRegex = {
-          "cn%(([^)]*)%)",
-          "clsx%(([^)]*)%)",
-        },
-      },
-      validate = true,
-    },
-  },
-})
+for _, lsp in ipairs(servers) do
+  -- CEK APAKAH SERVER ADA SEBELUM SETUP (Penting agar tidak traceback)
+  if lspconfig[lsp] then
+    lspconfig[lsp].setup {
+      on_attach = nvlsp.on_attach,
+      on_init = nvlsp.on_init,
+      capabilities = nvlsp.capabilities,
+    }
+  else
+    -- Jika nama salah, nvim tidak akan crash, hanya memberitahu di log
+    print("LSP identifier tidak valid: " .. lsp)
+  end
+end

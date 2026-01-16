@@ -1,2 +1,9 @@
-###GET 
-GET https://jsonplaceholder.typicode.com/users
+### 
+
+@token = your_access_token_here
+
+
+### Get Protected Data
+
+GET https://jsonplaceholder.typicode.com/posts/1 HTTP/1.1
+Authorization: Bearer {{token}}

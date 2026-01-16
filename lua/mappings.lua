@@ -3,7 +3,6 @@ require "nvchad.mappings"
 -- add yours here
 
 local map = vim.keymap.set
-local notify = require "notify"
 -- INSERT
 map("i", "jj", "<Esc>:w<CR>", { desc = "Exit insert + save" })
 map("i", "jk", "<Esc>:w<CR>", { desc = "Exit insert + save" })
@@ -54,7 +53,7 @@ map("n", "<leader>f", "<leader>ff", { remap = true, desc = "Find files" })
 -- LIVE GREP
 map("n", "<leader>/", "<leader>fw", { remap = true, desc = "Live grep" })
 
-map("n", "<leader>E", "<cmd>NvimTreeToggle<CR>", {
+map("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", {
   desc = "NvimTree Toggle",
 })
 -- map("n", "<leader>e", function()
@@ -138,16 +137,6 @@ end, { desc = "Toggle Inlay Hints" })
 
 vim.keymap.set("n", "K", vim.lsp.buf.hover)
 vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
-
-vim.keymap.set("i", "jk", function()
-  notify.dismiss { silent = true, pending = true }
-  return "<Esc>"
-end, { expr = true })
-
-vim.keymap.set("i", "jj", function()
-  notify.dismiss { silent = true, pending = true }
-  return "<Esc>"
-end, { expr = true })
 
 vim.keymap.set("c", "jk", "<Esc>", { silent = true })
 vim.keymap.set("c", "jj", "<Esc>", { silent = true })
