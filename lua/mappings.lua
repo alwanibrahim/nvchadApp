@@ -140,3 +140,10 @@ vim.keymap.set("i", "<C-k>", vim.lsp.buf.signature_help)
 
 vim.keymap.set("c", "jk", "<Esc>", { silent = true })
 vim.keymap.set("c", "jj", "<Esc>", { silent = true })
+map("n", "<leader>ug", function()
+  require("gitsigns").toggle_signs()
+end, { desc = "Toggle Git Signs" })
+
+vim.keymap.set("n", "<leader>ud", function()
+  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+end, { desc = "Toggle Diagnostics" })
