@@ -1,34 +1,64 @@
-let input: number[] = []
-let target: number = 0
-//output [0,1]
-function twoSum(nums: number[], target: number) {
+// two sums
+
+function twoSum(nums: number[], target: number): [number, number] {
+  const penyimpanan = new Map<number, number>(); // nilai -> index
+
+  for (let i = 0; i < nums.length; i++) {
+    const angkaSekarang = nums[i];
+    const angkaYangDibutuhkan = target - angkaSekarang;
+
+    if (penyimpanan.has(angkaYangDibutuhkan)) {
+      return [penyimpanan.get(angkaYangDibutuhkan)!, i];
+    }
+
+    penyimpanan.set(angkaSekarang, i); 
+  } 
+
+  throw new Error("Tidak ada pasangan yang cocok");
+}
+ 
+
+
+function twoSums2(nums: number[], target: number): [number, number] {
   const data = new Map<number, number>()
   for (let i = 0; i < nums.length; i++) {
-    const completion = target - nums[i]
-    console.log(completion);
+    const dataNow = nums[i]// [1, 2,3 4, 5, 6]
+    const dataDibutuhkan = target - dataNow
+    if (data.has(dataDibutuhkan)) {
+      return [data.get(dataDibutuhkan)!, i] 
+    }
+    data.set(dataNow, i)
   }
+
+  throw new Error("ada yang salah")
 }
 
-function mapMap(id: number, data: any) {
-  const sasa = new Map<number, number>()
-  if (sasa.has(id)) throw new Error("Id ada yang ada sudah")
-  sasa.set(id, data)
-  return {
-    message: "Berhasil"
+
+//pair defference 
+function pairDifference(nums: number[], k: number): [number, number] {
+  const data = new Map<number, number>(); // nilai -> index
+
+  for (let i = 0; i < nums.length; i++) {
+    const dataNow = nums[i];
+
+    const butuhPlus = dataNow + k;
+    const butuhMinus = dataNow - k;
+
+    // cek selisih ke dua arah
+    if (data.has(butuhPlus)) {
+      return [data.get(butuhPlus)!, i];
+    }
+
+    if (data.has(butuhMinus)) {
+      return [data.get(butuhMinus)!, i];
+    }
+
+    data.set(dataNow, i);
   }
+
+  throw new Error("Tidak ada pasangan dengan selisih tersebut");
 }
 
-mapMap(1, { nama: "alwan", age: 189 })
-console.log(mapMap(1, { nama: "alwan", age: 178 }));
-// kenpaa tidak error kan saya sudah setup id nya dengan sama 
 
 
-function pointer(data: string, left: number, right: number): { left: string, right: string } {
-  const split = data.split("")
-  const dataLeft: string = split[left]
-  c
-}
-}
-
-console.log(pointer("alwan", 1, 2));
 

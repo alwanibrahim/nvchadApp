@@ -7,3 +7,18 @@
 
 GET https://jsonplaceholder.typicode.com/posts/1 HTTP/1.1
 Authorization: Bearer {{token}}
+
+
+### GET
+
+POST https://api.digiflazz.com/v1/transaction HTTP/1.1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "buyer_sku_code": "test",
+  "customer_no": "087800001233",
+  "ref_id": "some1d",
+  "sign": "a47659b5af3b52fb57d4b8a3c069b11b",
+  "username": "tuwumiWXAdqg"
+}
